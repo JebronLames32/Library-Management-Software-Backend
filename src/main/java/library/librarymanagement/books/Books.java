@@ -4,8 +4,14 @@ import jakarta.persistence.*;
 @Entity
 public class Books {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long bookID;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(
+            name = "book_sequence",
+            sequenceName = "book_sequence"
+    )
+    private int bookID;
+
+
     @Column(nullable = false)
     private String bookName, Author;
 
@@ -18,17 +24,19 @@ public class Books {
     public Books() {
     }
 
-    public Books(String bookName, String author, boolean status) {
+    public Books(String bookName, String author, boolean status, String department, double shelfNumber) {
         this.bookName = bookName;
         this.Author = author;
         this.status = status;
+        this.department = department;
+        this.shelfNumber = shelfNumber;
     }
 
-    public Long getBookId() {
+    public int getBookId() {
         return bookID;
     }
 
-    public void setBookId(Long bookId) {
+    public void setBookId(int bookId) {
         this.bookID = bookId;
     }
 
